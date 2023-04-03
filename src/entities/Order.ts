@@ -29,7 +29,9 @@ export class Order {
         private userName: string,
         private deliveryDate: Date,
         private shoppingList: IOrderItem[]
-    ){}
+    ) {
+        this.total = this.calculateTotal()
+    }
 
     private calculateTotal = () => {
         const total = this.shoppingList.reduce(
