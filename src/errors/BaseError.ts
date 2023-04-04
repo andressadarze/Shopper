@@ -1,7 +1,7 @@
 export class BaseError extends Error {
     constructor(
-        message: string,
-        public statusCode: number
+        public statusCode: number,
+        message: string
     ) {
         super(message)
     }
