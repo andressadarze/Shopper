@@ -1,5 +1,6 @@
 import ProductDatabase from "../database/ProductDatabase";
 import { IGetProductsOutputDTO, Product } from "../entities/Product";
+import { ParamsError } from "../errors/ParamsError";
 
 class ProductBusiness {
     constructor(
@@ -8,6 +9,10 @@ class ProductBusiness {
 
     public getProducts = async() : Promise<IGetProductsOutputDTO> => {
         const productsDB = await this.productDatabase.getProducts()
+
+        if(productsDB.length === 0) {
+            throw new ParamsError("Não há produtos cadastrados em estoque")
+        }
 
         const products = productsDB.map(productDB => {
             const product = new Product(
