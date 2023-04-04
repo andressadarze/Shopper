@@ -1,3 +1,11 @@
+export interface IProductDB {
+    id: string,
+    name: string,
+    price: number,
+    qty_stock: number
+}
+
+
 export class Product {
     constructor(
         private id: string,
@@ -29,4 +37,8 @@ export class Product {
     public setStock = (newStock: number) => {
         this.qty_stock = newStock
     }
+}
+
+export interface IGetProductsOutputDTO {
+    products: IProductDB[]
 }

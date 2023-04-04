@@ -20,3 +20,7 @@ create table if not exists Shopper_Orders_Products (
     foreign key (product_id) references Shopper_Products(id)
 );
 
+select * from Shopper_Products;
+select * from `Shopper_Orders`;
+select * from `Shopper_Orders_Products`;
+
