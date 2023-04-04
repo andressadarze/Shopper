@@ -1,2 +1,21 @@
 ### Get Products
 GET http://localhost:3003/product
+
+### Create Order
+POST http://localhost:3003/order/create
+Content-Type: application/json
+
+{
+    "userName": "Bianca",
+    "deliveryDate": "2023/04/04",
+    "shoppingList": [
+        {
+            "productId": "19",
+            "quantity": 4
+        },
+        {
+            "productId": "41",
+            "quantity": 13
+        }
+    ]
+}

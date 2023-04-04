@@ -1,17 +1,28 @@
+export interface IOrderDB {
+    id: string,
+    name: string,
+    delivery_date: Date
+}
 
-export interface IOrderItem {
+export interface IOrderProductDB {
+    order_id: string,
     product_id: string,
-    product_name: string,
-    price: number,
     quantity: number
+}
+
+export interface IOrderProduct {
+    productId: string,
+    productName: string,
+    quantity: number,
+    price: number
 }
 
 export interface IOrderResume {
     id: string,
     userName: string
-    deliveryDate: Date
+    deliveryDate: string
     shoppingList: {
-        id: string,
+        productId: string,
         name: string,
         price: number,
         quantity: number
@@ -27,7 +38,7 @@ export class Order {
         private id: string,
         private userName: string,
         private deliveryDate: Date,
-        private shoppingList: IOrderItem[]
+        private shoppingList: IOrderProduct[]
     ) {
         this.total = this.calculateTotal()
     }
@@ -57,11 +68,25 @@ export class Order {
         return this.shoppingList
     }
 
-    public setShoppingList = (newShoppingList: IOrderItem[]) => {
+    public setShoppingList = (newShoppingList: IOrderProduct[]) => {
         this.shoppingList = newShoppingList
     }
 
     public getTotal = () => {
         return this.total
     }
+}
+
+export interface ICreateOrderInputDTO {
+    userName: string,
+    deliveryDate: string,
+    shoppingList: {
+        productId: string,
+        quantity: number
+    }[]
+}
+
+export interface ICreateOrderOutputDTO {
+    message: string,
+    order: IOrderResume
 }

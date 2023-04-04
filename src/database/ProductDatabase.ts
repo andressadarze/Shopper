@@ -12,6 +12,15 @@ class ProductDatabase extends BaseDatabase {
         return result
     }
 
+    public findProductById = async (productId: string) : Promise<IProductDB> =>  {
+
+        const result: IProductDB[] = await BaseDatabase
+        .connection(ProductDatabase.TABLE_PRODUCTS)
+        .select()
+        .where({id: productId})
+
+        return result[0]
+    }
 }
 
 export default ProductDatabase
