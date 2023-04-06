@@ -10,6 +10,23 @@ export interface IOrderProductDB {
     quantity: number
 }
 
+export interface IGetOrderProductsDB {
+    product_id: string,
+    product_name: string,
+    quantity: number,
+    price: number
+}
+
+// export interface IGetOrdersDB {
+//     id: string,
+//     user_name: string,
+//     delivery_date: Date,
+//     product_id: string,
+//     quantity: number,
+//     product_name: string,
+//     price: number
+// }
+
 export interface IOrderProduct {
     productId: string,
     productName: string,
@@ -23,7 +40,7 @@ export interface IOrderResume {
     deliveryDate: string
     shoppingList: {
         productId: string,
-        name: string,
+        productName: string,
         price: number,
         quantity: number
     }[],
@@ -70,6 +87,7 @@ export class Order {
 
     public setShoppingList = (newShoppingList: IOrderProduct[]) => {
         this.shoppingList = newShoppingList
+        this.total = this.calculateTotal()
     }
 
     public getTotal = () => {
@@ -89,4 +107,8 @@ export interface ICreateOrderInputDTO {
 export interface ICreateOrderOutputDTO {
     message: string,
     order: IOrderResume
+}
+
+export interface IGetOrdersOutputDTO {
+    orders: IOrderResume[]
 }

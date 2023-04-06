@@ -1,6 +1,6 @@
 import OrderDatabase from "../database/OrderDatabase";
 import ProductDatabase from "../database/ProductDatabase";
-import { ICreateOrderInputDTO, ICreateOrderOutputDTO, IOrderDB, IOrderProduct, IOrderProductDB } from "../entities/Order";
+import { ICreateOrderInputDTO, ICreateOrderOutputDTO, IGetOrderProductsDB, IGetOrdersOutputDTO, IOrderDB, IOrderProduct, IOrderProductDB, Order } from "../entities/Order";
 import { ConflictError } from "../errors/ConflictError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { ParamsError } from "../errors/ParamsError";
@@ -38,7 +38,7 @@ class OrderBusiness {
 
             return {
                 ...product,
-                name: "",
+                productName: "",
                 price: 0
             }
         })
@@ -54,7 +54,7 @@ class OrderBusiness {
                 throw new ConflictError("A quantidade solicitada não está disponível no estoque.")
             }
 
-            product.name = productDB.name
+            product.productName = productDB.name
             product.price = productDB.price
         }
 
@@ -96,6 +96,61 @@ class OrderBusiness {
 
         return response
 
+    }
+
+    public getOrders = async() : Promise<IGetOrdersOutputDTO> => {
+        const ordersDB = await this.orderDatabase.getOrders()
+
+        if(ordersDB.length === 0) {
+            throw new ParamsError("Não há pedidos cadastrados no sistema")
+        }
+
+        const orders : Order[] = []
+
+        for(let orderDB of ordersDB) {
+            const order = new Order(
+                orderDB.id,
+                orderDB.name,
+                orderDB.delivery_date,
+                []
+            )
+
+            const orderProductsDB : IGetOrderProductsDB[] = await this.orderDatabase.getProductsByOrder(order.getId())
+
+            const shoppingList = orderProductsDB.map( productDB => {
+                const orderProduct: IOrderProduct = {
+                    productId: productDB.product_id,
+                    productName: productDB.product_name,
+                    quantity: productDB.quantity,
+                    price: productDB.price
+                }
+                return orderProduct
+            })
+
+            order.setShoppingList(shoppingList)
+
+            orders.push(order)
+        }
+
+        const formatDate = (date: Date) => {
+            const year = date.getFullYear()
+            const month = String(date.getMonth() + 1).padStart(2, '0')
+            const day = String(date.getDate()).padStart(2, '0')
+          
+            return `${year}-${month}-${day}`
+        }
+
+        const response : IGetOrdersOutputDTO = {
+            orders: orders.map((order) => ({
+                id: order.getId(),
+                userName: order.getUserName(),
+                deliveryDate: formatDate(order.getDeliveryDate()),
+                shoppingList: order.getShoppingList(),
+                total: order.getTotal()
+            }))
+        }
+
+        return response
     }
 }
 
