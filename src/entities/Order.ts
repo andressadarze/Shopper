@@ -17,16 +17,6 @@ export interface IGetOrderProductsDB {
     price: number
 }
 
-// export interface IGetOrdersDB {
-//     id: string,
-//     user_name: string,
-//     delivery_date: Date,
-//     product_id: string,
-//     quantity: number,
-//     product_name: string,
-//     price: number
-// }
-
 export interface IOrderProduct {
     productId: string,
     productName: string,
@@ -93,6 +83,14 @@ export class Order {
     public getTotal = () => {
         return this.total
     }
+
+    public formatDate = (date: Date) => {
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+      
+        return `${year}-${month}-${day}`
+    }
 }
 
 export interface ICreateOrderInputDTO {
@@ -111,4 +109,12 @@ export interface ICreateOrderOutputDTO {
 
 export interface IGetOrdersOutputDTO {
     orders: IOrderResume[]
+}
+
+export interface IGetOrderByIdInputDTO {
+    id: string
+}
+
+export interface IGetOrderByIdOutputDTO {
+    order: IOrderResume
 }

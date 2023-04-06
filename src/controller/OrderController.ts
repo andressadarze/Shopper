@@ -1,6 +1,6 @@
 import OrderBusiness from "../business/OrderBusiness"
 import { Request, Response } from "express"
-import { ICreateOrderInputDTO } from "../entities/Order"
+import { ICreateOrderInputDTO, IGetOrderByIdInputDTO } from "../entities/Order"
 import { BaseError } from "../errors/BaseError"
 
 class OrderController {
@@ -36,11 +36,28 @@ class OrderController {
             res.status(200).send(response)
             
         } catch (error) {
-            console.log(error)
             if (error instanceof BaseError) {
                 return res.status(error.statusCode).send({ message: error.message })
             }
-            res.status(500).send({ message: "Erro inesperado ao buscar pedidos" })
+            res.status(500).send({ message: "Erro inesperado ao buscar pedidos." })
+        }
+    }
+
+    public getOrderById = async(req:Request, res: Response) => {
+        try {
+            const id = req.params.id
+
+            const input: IGetOrderByIdInputDTO = {
+                id
+            }
+            const response = await this.orderBusiness.getOrderById(input)
+            res.status(200).send(response)
+    
+        } catch (error) {
+            if (error instanceof BaseError) {
+                return res.status(error.statusCode).send({ message: error.message })
+            }
+            res.status(500).send({ message: "Erro inesperado ao busca pedido." })
         }
     }
 

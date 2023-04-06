@@ -22,3 +22,6 @@ Content-Type: application/json
 
 ### Get Orders
 GET  http://localhost:3003/order
+
+### Get Order By Id
+GET  http://localhost:3003/order/30f400b9-3952-4882-bef6-8fee059353f4
