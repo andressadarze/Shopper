@@ -7,6 +7,7 @@ import styled from "styled-components"
 import OrderForm from "./screens/OrderForm/OrderForm"
 import { BASE_URL } from "./constants/urls"
 import axios from "axios"
+import OrderSuccessPopup from "./components/OrderSuccessPopup/OrderSuccessPopup"
 
 export const AppScreensContainer = styled.div`
 display: flex;
@@ -16,13 +17,22 @@ const App = () => {
   const [cart, setCart] = useState([])
   const [total, setTotal] = useState(0)
 
+  const [ orderSuccessPopupState, setOrderSuccessPopupState ] = useState({
+    isActive: false,
+    message: null,
+    summary: {
+      id: null,
+      userName: null,
+      deliveryDate: null,
+      shoppingList: null,
+      total: null
+    }
+  })
+
   useEffect(() => {
     calculateTotal()
   }, [cart])
 
-  // const handleCart = (cart) => {
-  //   setCart(cart)
-  // }
 
   const addToCart = (productToAdd) => {
 
@@ -108,12 +118,34 @@ const App = () => {
 
     axios.post(`${BASE_URL}/order/create`, body)
     .then((res) => {
+
       console.log(res.data)
+      setOrderSuccessPopupState({
+        isActive: true,
+        message: res.data.message,
+        summary: res.data.order
+      })
+
       clear()
+
       setCart([])
     })
     .catch((err) => {
-      console.log(err)
+      alert(err.response.data.message)
+    })
+  }
+
+  const closePopup = () => {
+    setOrderSuccessPopupState({
+      isActive: false,
+      message: null,
+      summary: {
+        id: null,
+        userName: null,
+        deliveryDate: null,
+        shoppingList: null,
+        total: null
+      }
     })
   }
 
@@ -131,6 +163,12 @@ const App = () => {
           total={total}
           confirmOrder={confirmOrder}
         />
+        { orderSuccessPopupState.isActive
+         && <OrderSuccessPopup 
+              order={orderSuccessPopupState.summary}
+              closePopup={closePopup}
+            />
+        }
       </AppScreensContainer>
 
     </ThemeProvider>
