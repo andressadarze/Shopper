@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import ProductCard from "../../components/ProductCard/ProductCard"
 import {BASE_URL} from "../../constants/urls"
 import { ProductsFeedContainer } from "./styled"
-// import useRequestData from "../../hooks/useRequestData"
 
 const ProductsFeed = (props) => {
 
@@ -19,8 +18,6 @@ const ProductsFeed = (props) => {
             console.log(err)
         })
     })
-
-    // const products = useRequestData([], `${BASE_URL}/product`)
 
     const productCards = products.map((product) => {
         return (

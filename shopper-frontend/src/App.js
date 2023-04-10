@@ -8,7 +8,7 @@ import OrderForm from "./screens/OrderForm/OrderForm"
 import { BASE_URL } from "./constants/urls"
 import axios from "axios"
 
-export const ScreensContainer = styled.div`
+export const AppScreensContainer = styled.div`
 display: flex;
 `
 
@@ -96,7 +96,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <ScreensContainer>
+      <AppScreensContainer>
         <ProductsFeed addToCart={addToCart} />
         <OrderForm
           cart={cart}
@@ -106,7 +106,7 @@ const App = () => {
           total={total}
           confirmOrder={confirmOrder}
         />
-      </ScreensContainer>
+      </AppScreensContainer>
 
     </ThemeProvider>
   );
