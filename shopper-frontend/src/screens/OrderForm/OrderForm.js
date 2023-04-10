@@ -1,21 +1,31 @@
-import { Button, TextField } from "@mui/material"
+import { Button, TextField } from "@mui/material";
 import OrderSummary from "../../components/OrderSummary/OrderSummary"
 import { FinishOrderButtonContainer, InputsContainer, OrderFormContainer, ScreenContainer } from "./styled"
-import ReactDatePicker from "react-datepicker"
-import { DateField } from "@mui/x-date-pickers"
+import React from "react"
+import useForm from "../../hooks/useForm";
+
 
 const OrderForm = (props) => {
     const { cart, addToCart, removeFromCart, deleteFromCart, total, confirmOrder } = props
+
+    const [ form, onChange, clear ] = useForm({userName: "", deliveryDate: ""})
+
+    const onSubmitForm = (event) => {
+        event.preventDefault()
+        confirmOrder(form, clear)
+    }
 
     return (
         <div>
             <ScreenContainer>
                 <OrderFormContainer>
                 <h2>Formulário do pedido</h2>
-                <form>
+                <form onSubmit={onSubmitForm}>
                         <InputsContainer>
                             <TextField
                                 name={"userName"}
+                                value={form.userName}
+                                onChange={onChange}
                                 label={"Nome"}
                                 variant={"outlined"}
                                 fullWidth
@@ -24,10 +34,10 @@ const OrderForm = (props) => {
                                 type="text"
 
                             />
-
-                            {/* conferir formato da data e colocar a label na parte de cima do field*/}
                             <TextField
                                 name={"deliveryDate"}
+                                value={form.deliveryDate}
+                                onChange={onChange}
                                 variant={"outlined"}
                                 fullWidth
                                 margin={"normal"}
@@ -35,7 +45,6 @@ const OrderForm = (props) => {
                                 type="date"
 
                             />
-
                             <OrderSummary
                                 cart={cart}
                                 addToCart={addToCart}
@@ -47,7 +56,7 @@ const OrderForm = (props) => {
 
                         <FinishOrderButtonContainer>
                             <Button
-                                // type={"submit"}
+                                type={"submit"}
                                 fullWidth
                                 variant={"contained"}
                                 color={"primary"}

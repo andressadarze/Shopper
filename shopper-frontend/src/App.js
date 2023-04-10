@@ -88,8 +88,33 @@ const App = () => {
     setTotal(total)
   }
 
-  const confirmOrder = async () => {
+  const confirmOrder = async (form, clear) => {
 
+    const shoppingList = cart.map((product) => {
+      const item = {
+        productId: product.id,
+        quantity: product.quantity
+      }
+      return item
+    })
+
+    const { userName, deliveryDate } = form
+
+    const body = {
+      userName,
+      deliveryDate,
+      shoppingList
+    }
+
+    axios.post(`${BASE_URL}/order/create`, body)
+    .then((res) => {
+      console.log(res.data)
+      clear()
+      setCart([])
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
 
