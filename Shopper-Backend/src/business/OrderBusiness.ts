@@ -51,7 +51,7 @@ class OrderBusiness {
             }
 
             if (product.quantity > productDB.qty_stock) {
-                throw new ConflictError("A quantidade solicitada não está disponível no estoque.")
+                throw new ConflictError(`A quantidade solicitada do produto ${productDB.name} não está disponível no estoque. Só há ${productDB.qty_stock} unidades restantes.`)
             }
 
             product.productName = productDB.name
