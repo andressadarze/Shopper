@@ -1,17 +1,18 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import ProductCard from "../components/ProductCard/ProductCard"
-import {BASE_URL} from "../constants/urls"
+import ProductCard from "../../components/ProductCard/ProductCard"
+import {BASE_URL} from "../../constants/urls"
 import { ProductsFeedContainer } from "./styled"
+// import useRequestData from "../../hooks/useRequestData"
 
-const ProductsFeed = () => {
+const ProductsFeed = (props) => {
 
+    const { addToCart } = props
     const [ products, setProducts ] = useState([])
 
     useEffect(() => {
         axios.get(`${BASE_URL}/product`)
         .then((res) => {
-            console.log(res) // APAGAR DEPOIS
             setProducts(res.data.products)
         })
         .catch((err) => {
@@ -19,12 +20,14 @@ const ProductsFeed = () => {
         })
     })
 
+    // const products = useRequestData([], `${BASE_URL}/product`)
+
     const productCards = products.map((product) => {
         return (
             <ProductCard
                 key={product.id}
-                name={product.name}
-                price={product.price}
+                product={product}
+                addToCart={addToCart}
             />
         )
     })

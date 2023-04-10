@@ -1,4 +1,3 @@
-import { Fab } from '@mui/material'
 import styled from 'styled-components'
 
 export const ProductsFeedContainer = styled.div`
