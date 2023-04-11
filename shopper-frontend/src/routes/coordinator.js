@@ -5,3 +5,7 @@ export const goToHome = navigate => {
 export const goToStock = navigate => {
     navigate('/estoque')
 }
+
+// export const goToCart = navigate => {
+//     navigate('/carrinho')
+// }
