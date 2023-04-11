@@ -1,8 +1,12 @@
+import { useContext } from "react"
 import { ContainerDiv } from "./styled"
+import GlobalStateContext from "../../global/GlobalStateContex"
 
-const OrderSuccessPopup = (props) => {
+const OrderSuccessPopup = () => {
+    
+    const { states, requests } = useContext(GlobalStateContext)
 
-    const { order, closePopup } = props
+    const order = states.orderSuccessPopupState.summary
 
     return (
         <ContainerDiv>
@@ -21,7 +25,7 @@ const OrderSuccessPopup = (props) => {
 
                 <span 
                     className="close-popup"
-                    onClick={closePopup}
+                    onClick={requests.closeOrderSuccessPopup}
                 >
                     X 
                 </span>

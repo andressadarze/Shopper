@@ -28,7 +28,7 @@ const Header = () => {
           <HomeOutlinedIcon sx={{color: grey['A100']}} />
           </IconButton>
 
-          <IconButton aria-label="cart">
+          <IconButton aria-label="cart" onClick={() => goToCart(navigate)}>
                 <ShoppingCartOutlinedIcon sx={{color: grey['A100']}}/>
           </IconButton>
 

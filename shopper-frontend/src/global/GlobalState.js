@@ -1,19 +1,16 @@
-import React from "react"
-import ProductsFeed from "../../screens/ProductsFeed/ProductsFeed"
-import OrderForm from "../../screens/OrderForm/OrderForm"
-import styled from "styled-components"
-import { useEffect, useState } from "react"
-import axios from "axios"
-import OrderSuccessPopup from "../../components/OrderSuccessPopup/OrderSuccessPopup"
-import { BASE_URL } from "../../constants/urls"
+import React from 'react'
+import axios from 'axios'
+import GlobalStateContext from './GlobalStateContex'
+import { useState } from 'react'
+import { BASE_URL } from '../constants/urls'
 
-export const HomePageContainer = styled.div`
-display: flex;
-`
+const GlobalState = (props) => {
 
-const HomePage = () => {
     const [cart, setCart] = useState([])
+
     const [total, setTotal] = useState(0)
+
+    const [products, setProducts] = useState([])
 
     const [orderSuccessPopupState, setOrderSuccessPopupState] = useState({
         isActive: false,
@@ -27,10 +24,15 @@ const HomePage = () => {
         }
     })
 
-    useEffect(() => {
-        calculateTotal()
-    }, [cart])
-
+    const getProducts = () => {
+        axios.get(`${BASE_URL}/product`)
+            .then((res) => {
+                setProducts(res.data.products)
+            })
+            .catch((err) => {
+                alert(err.message)
+            })
+    }
 
     const addToCart = (productToAdd) => {
 
@@ -96,43 +98,6 @@ const HomePage = () => {
         setTotal(total)
     }
 
-    const confirmOrder = async (form, clear) => {
-
-        const shoppingList = cart.map((product) => {
-            const item = {
-                productId: product.id,
-                quantity: product.quantity
-            }
-            return item
-        })
-
-        const { userName, deliveryDate } = form
-
-        const body = {
-            userName,
-            deliveryDate,
-            shoppingList
-        }
-
-        axios.post(`${BASE_URL}/order/create`, body)
-            .then((res) => {
-
-                console.log(res.data)
-                setOrderSuccessPopupState({
-                    isActive: true,
-                    message: res.data.message,
-                    summary: res.data.order
-                })
-
-                clear()
-
-                setCart([])
-            })
-            .catch((err) => {
-                alert(err.response.data.message)
-            })
-    }
-
     const closeOrderSuccessPopup = () => {
         setOrderSuccessPopupState({
             isActive: false,
@@ -147,27 +112,35 @@ const HomePage = () => {
         })
     }
 
-    return (
-        <HomePageContainer>
-            <ProductsFeed addToCart={addToCart} />
-            <OrderForm
-                cart={cart}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                deleteFromCart={deleteFromCart}
-                total={total}
-                confirmOrder={confirmOrder}
-            />
-                {orderSuccessPopupState.isActive 
-                    && 
-                    <OrderSuccessPopup
-                        order={orderSuccessPopupState.summary}
-                        closePopup={closeOrderSuccessPopup}
-                    />
-                }
-        </HomePageContainer>
 
+    const states = {
+        cart,
+        total,
+        products,
+        orderSuccessPopupState
+    }
+
+    const setters = {
+        setCart,
+        setTotal,
+        setProducts,
+        setOrderSuccessPopupState
+    }
+
+    const requests = { 
+        getProducts,
+        addToCart,
+        removeFromCart,
+        deleteFromCart,
+        calculateTotal,
+        closeOrderSuccessPopup
+    }
+
+    return (
+        <GlobalStateContext.Provider value={{states, setters, requests}}>
+            {props.children}
+        </GlobalStateContext.Provider>
     )
 }
 
-export default HomePage
+export default GlobalState

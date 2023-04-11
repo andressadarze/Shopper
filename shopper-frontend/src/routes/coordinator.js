@@ -6,6 +6,6 @@ export const goToStock = navigate => {
     navigate('/estoque')
 }
 
-// export const goToCart = navigate => {
-//     navigate('/carrinho')
-// }
+export const goToCart = navigate => {
+    navigate('/carrinho')
+}

@@ -1,22 +1,17 @@
 import axios from "axios"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { BASE_URL } from "../../constants/urls"
+import GlobalStateContext from "../../global/GlobalStateContex"
 
 
 const StockPage = () => {
-    const [ products, setProducts ] = useState([])
+    const { states, setters, requests } = useContext(GlobalStateContext)
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/product`)
-        .then((res) => {
-            setProducts(res.data.products)
-        })
-        .catch((err) => {
-            alert(err.message)
-        })
+        requests.getProducts()
     })
 
-    const stockList = products.map((product) => {
+    const stockList = states.products.map((product) => {
         return (
             <p key={product.id}>{product.name} : {product.qty_stock} </p>
         )

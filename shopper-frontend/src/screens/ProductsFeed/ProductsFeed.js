@@ -1,29 +1,21 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect} from "react"
 import ProductCard from "../../components/ProductCard/ProductCard"
-import { BASE_URL } from "../../constants/urls"
 import { ProductsFeedContainer } from "./styled"
+import GlobalStateContext from "../../global/GlobalStateContex"
 
 const ProductsFeed = (props) => {
-    const { addToCart } = props
-    const [products, setProducts] = useState([])
+
+    const {states, setters, requests} = useContext(GlobalStateContext)
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/product`)
-            .then((res) => {
-                setProducts(res.data.products)
-            })
-            .catch((err) => {
-                alert(err.message)
-            })
+        requests.getProducts()
     })
 
-    const productCards = products.map((product) => {
+    const productCards = states.products.map((product) => {
         return (
             <ProductCard
                 key={product.id}
                 product={product}
-                addToCart={addToCart}
             />
         )
     })

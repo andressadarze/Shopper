@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useContext } from "react"
 import OrderProductCard from "../OrderProductCard/OrderProductCard"
 import styled from "styled-components"
+import GlobalStateContext from "../../global/GlobalStateContex"
 
 export const ContainerSection = styled.section`
     h1 {
@@ -9,17 +10,15 @@ export const ContainerSection = styled.section`
     }
 `
 
-const OrderSummary = (props) => {
-    const { cart, addToCart, removeFromCart, deleteFromCart, total} = props
+const OrderSummary = () => {
 
-    const summary = cart.map((product) => {
+    const { states, setters, requests } = useContext(GlobalStateContext)
+
+    const summary = states.cart.map((product) => {
         return (
             <OrderProductCard 
                 key={product.id}
                 product={product}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                deleteFromCart={deleteFromCart}
             />
         )
     })
@@ -29,7 +28,7 @@ const OrderSummary = (props) => {
             <h1>Resumo do pedido</h1>
             {summary}
             <h2>
-                Total: R${total.toFixed(2)}
+                Total: R${states.total.toFixed(2)}
             </h2>
         </ContainerSection>
     )

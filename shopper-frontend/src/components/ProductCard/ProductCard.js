@@ -8,17 +8,20 @@ import Typography from '@mui/material/Typography';
 import { ProductCardContainer, ProductCardContent } from './styled';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import logo from "../../assets/logo.png"
+import GlobalStateContext from '../../global/GlobalStateContex';
 
 const ProductCard = (props) => {
 
-  const { product, addToCart } = props
+  const { requests } = React.useContext(GlobalStateContext)
+
+  const { product } = props
 
   return (
     <ProductCardContainer>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
-          sx={{ height: 140 }}
-          image={logo}
+          sx={{ height: 300 }}
+          image={"https://d2om08pcbtz1n1.cloudfront.net/03d63017-2cb4-41f5-97ef-0ac3c4c55c0c.jpg"}
           title="Shopper Product"
         />
         <ProductCardContent>
@@ -30,7 +33,7 @@ const ProductCard = (props) => {
           </Typography>
         </ProductCardContent>
         <CardActions>
-          <Button size="small" startIcon={<AddShoppingCartIcon />} onClick={() => addToCart(product)}>
+          <Button size="small" startIcon={<AddShoppingCartIcon />} onClick={() => requests.addToCart(product)}>
             Adicionar ao carrinho
           </Button>
         </CardActions>
