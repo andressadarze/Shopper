@@ -1,23 +1,18 @@
 import { ThemeProvider } from "@mui/material/styles"
 import theme from "./constants/theme"
 import Header from "./components/Header/Header"
-import ProductsFeed from "./screens/ProductsFeed/ProductsFeed"
 import { useEffect, useState } from "react"
-import styled from "styled-components"
-import OrderForm from "./screens/OrderForm/OrderForm"
 import { BASE_URL } from "./constants/urls"
 import axios from "axios"
 import OrderSuccessPopup from "./components/OrderSuccessPopup/OrderSuccessPopup"
-
-export const AppScreensContainer = styled.div`
-display: flex;
-`
+import HomePage from "./pages/HomePage/HomePage"
+import StockPage from "./pages/StockPage/StockPage"
 
 const App = () => {
   const [cart, setCart] = useState([])
   const [total, setTotal] = useState(0)
 
-  const [ orderSuccessPopupState, setOrderSuccessPopupState ] = useState({
+  const [orderSuccessPopupState, setOrderSuccessPopupState] = useState({
     isActive: false,
     message: null,
     summary: {
@@ -117,22 +112,22 @@ const App = () => {
     }
 
     axios.post(`${BASE_URL}/order/create`, body)
-    .then((res) => {
+      .then((res) => {
 
-      console.log(res.data)
-      setOrderSuccessPopupState({
-        isActive: true,
-        message: res.data.message,
-        summary: res.data.order
+        console.log(res.data)
+        setOrderSuccessPopupState({
+          isActive: true,
+          message: res.data.message,
+          summary: res.data.order
+        })
+
+        clear()
+
+        setCart([])
       })
-
-      clear()
-
-      setCart([])
-    })
-    .catch((err) => {
-      alert(err.response.data.message)
-    })
+      .catch((err) => {
+        alert(err.response.data.message)
+      })
   }
 
   const closePopup = () => {
@@ -152,24 +147,27 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+
       <Header />
-      <AppScreensContainer>
-        <ProductsFeed addToCart={addToCart} />
-        <OrderForm
-          cart={cart}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-          deleteFromCart={deleteFromCart}
-          total={total}
-          confirmOrder={confirmOrder}
+
+      <HomePage
+        cart={cart}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        deleteFromCart={deleteFromCart}
+        total={total}
+        confirmOrder={confirmOrder}
+      />
+
+      {orderSuccessPopupState.isActive
+        && <OrderSuccessPopup
+          order={orderSuccessPopupState.summary}
+          closePopup={closePopup}
         />
-        { orderSuccessPopupState.isActive
-         && <OrderSuccessPopup 
-              order={orderSuccessPopupState.summary}
-              closePopup={closePopup}
-            />
-        }
-      </AppScreensContainer>
+      }
+
+      <StockPage />
+
 
     </ThemeProvider>
   );

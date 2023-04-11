@@ -15,7 +15,7 @@ const ProductsFeed = (props) => {
             setProducts(res.data.products)
         })
         .catch((err) => {
-            console.log(err)
+            alert(err.message)
         })
     })
 

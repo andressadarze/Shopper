@@ -7,16 +7,19 @@ import MenuIcon from '@mui/icons-material/Menu'
 
 const Header = () => {
   return (
+
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="absolute">
         <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Shopper.com.br
-            </Typography>
-            <MenuIcon />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Shopper.com.br
+          </Typography>
+          <MenuIcon />
         </Toolbar>
       </AppBar>
     </Box>
+
+
   );
 }
 

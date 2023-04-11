@@ -10,8 +10,7 @@ const theme = createTheme({
     text: {
       primary: neutralColor
     }
-  },
+  }
 })
 
 export default theme
-
