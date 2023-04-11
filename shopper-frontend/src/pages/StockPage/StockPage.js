@@ -2,8 +2,8 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { BASE_URL } from "../../constants/urls"
 
-const StockPage = () => {
 
+const StockPage = () => {
     const [ products, setProducts ] = useState([])
 
     useEffect(() => {
