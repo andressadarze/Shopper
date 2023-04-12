@@ -1,7 +1,7 @@
-import axios from "axios"
 import React, { useContext, useEffect, useState } from "react"
-import { BASE_URL } from "../../constants/urls"
 import GlobalStateContext from "../../global/GlobalStateContex"
+import { Box } from "@mui/material"
+import * as styled from "./styled"
 
 
 const StockPage = () => {
@@ -12,15 +12,41 @@ const StockPage = () => {
     })
 
     const stockList = states.products.map((product) => {
-        return (
-            <p key={product.id}>{product.name} : {product.qty_stock} </p>
+        return ( 
+            <styled.StockContainer key={product.id}>
+
+                <styled.ProductLabel>
+                    {product.name}
+                </styled.ProductLabel>
+
+                <styled.ProductQty>
+                    {product.qty_stock}
+                </styled.ProductQty>
+
+
+            </styled.StockContainer>
         )
     })
 
     return (
-        <div>
+        <Box style={{justifyContent: "center", minWidth: "100%", padding:"30px"}}>
+            <styled.StockTitleContainer>
+                <styled.QuantityTitle>ESTOQUE</styled.QuantityTitle>
+            </styled.StockTitleContainer>
+            
+            <styled.StockTitleContainer>
+                <styled.StockLabel>
+                    Produto
+                </styled.StockLabel>
+
+                <styled.QuantityTitle>
+                    Quantidade
+                </styled.QuantityTitle>
+         
+            </styled.StockTitleContainer>
+
             {stockList}
-        </div>
+        </Box>
     )
 }
 

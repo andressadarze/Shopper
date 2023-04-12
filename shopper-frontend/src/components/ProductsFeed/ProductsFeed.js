@@ -1,11 +1,11 @@
-import { useContext, useEffect} from "react"
+import { useContext, useEffect } from "react"
 import ProductCard from "../../components/ProductCard/ProductCard"
 import { ProductsFeedContainer } from "./styled"
 import GlobalStateContext from "../../global/GlobalStateContex"
 
 const ProductsFeed = (props) => {
 
-    const {states, setters, requests} = useContext(GlobalStateContext)
+    const { states, setters, requests } = useContext(GlobalStateContext)
 
     useEffect(() => {
         requests.getProducts()
@@ -21,11 +21,11 @@ const ProductsFeed = (props) => {
     })
 
     return (
-        <div>
-            <ProductsFeedContainer>
-                {productCards}
-            </ProductsFeedContainer>
-        </div>
+
+        <ProductsFeedContainer>
+            {productCards}
+        </ProductsFeedContainer>
+
 
     )
 }

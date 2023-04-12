@@ -1,19 +1,50 @@
 import { Button, TextField } from "@mui/material";
 import OrderSummary from "../../components/OrderSummary/OrderSummary"
 import { FinishOrderButtonContainer, InputsContainer, OrderFormContainer, ScreenContainer } from "./styled"
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import useForm from "../../hooks/useForm";
 import GlobalStateContext from "../../global/GlobalStateContex";
-import OrderSuccessPopup from "../../components/OrderSuccessPopup/OrderSuccessPopup";
+import OrderSuccessModal from "../OrderSuccessModal/OrderSuccessModal";
 import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
+import { useNavigate } from "react-router-dom";
+import { goToHome } from "../../routes/coordinator";
 
 
 const OrderForm = () => {
 
+    const navigate = useNavigate()
+
     const { states, setters, requests } = useContext(GlobalStateContext)
 
     const [form, onChange, clear] = useForm({ userName: "", deliveryDate: "" })
+
+    const [orderSuccessModalState, setOrderSuccessModalState] = useState({
+        isActive: false,
+        message: null,
+        summary: {
+            id: null,
+            userName: null,
+            deliveryDate: null,
+            shoppingList: null,
+            total: null
+        }
+    })
+
+    const closeOrderSuccessModal = () => {
+        setOrderSuccessModalState({
+            isActive: false,
+            message: null,
+            summary: {
+                id: null,
+                userName: null,
+                deliveryDate: null,
+                shoppingList: null,
+                total: null
+            }
+        })
+        goToHome(navigate)
+    }
 
     useEffect(() => {
         requests.calculateTotal()
@@ -39,7 +70,7 @@ const OrderForm = () => {
 
         axios.post(`${BASE_URL}/order/create`, body)
             .then((res) => {
-                setters.setOrderSuccessPopupState({
+                setOrderSuccessModalState({
                     isActive: true,
                     message: res.data.message,
                     summary: res.data.order
@@ -106,11 +137,11 @@ const OrderForm = () => {
 
                     </form>
                 </OrderFormContainer>
-                {states.orderSuccessPopupState.isActive 
+                {orderSuccessModalState.isActive 
                     && 
-                    <OrderSuccessPopup
-                        order={states.orderSuccessPopupState.summary}
-                        closePopup={requests.closeOrderSuccessPopup}
+                    <OrderSuccessModal
+                        orderSuccessModal={orderSuccessModalState}
+                        closeModal={closeOrderSuccessModal}
                     />
                 }
             </ScreenContainer>

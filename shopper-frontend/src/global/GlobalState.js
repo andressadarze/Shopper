@@ -12,18 +12,6 @@ const GlobalState = (props) => {
 
     const [products, setProducts] = useState([])
 
-    const [orderSuccessPopupState, setOrderSuccessPopupState] = useState({
-        isActive: false,
-        message: null,
-        summary: {
-            id: null,
-            userName: null,
-            deliveryDate: null,
-            shoppingList: null,
-            total: null
-        }
-    })
-
     const getProducts = () => {
         axios.get(`${BASE_URL}/product`)
             .then((res) => {
@@ -98,33 +86,16 @@ const GlobalState = (props) => {
         setTotal(total)
     }
 
-    const closeOrderSuccessPopup = () => {
-        setOrderSuccessPopupState({
-            isActive: false,
-            message: null,
-            summary: {
-                id: null,
-                userName: null,
-                deliveryDate: null,
-                shoppingList: null,
-                total: null
-            }
-        })
-    }
-
-
     const states = {
         cart,
         total,
-        products,
-        orderSuccessPopupState
+        products
     }
 
     const setters = {
         setCart,
         setTotal,
-        setProducts,
-        setOrderSuccessPopupState
+        setProducts
     }
 
     const requests = { 
@@ -132,8 +103,7 @@ const GlobalState = (props) => {
         addToCart,
         removeFromCart,
         deleteFromCart,
-        calculateTotal,
-        closeOrderSuccessPopup
+        calculateTotal
     }
 
     return (

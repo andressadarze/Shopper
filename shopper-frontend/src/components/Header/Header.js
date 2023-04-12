@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import MenuIcon from '@mui/icons-material/Menu'
 import { goToStock, goToCart, goToHome} from '../../routes/coordinator'
 import { useNavigate } from 'react-router-dom'
 import { IconButton } from "@mui/material"
@@ -28,12 +27,12 @@ const Header = () => {
           <HomeOutlinedIcon sx={{color: grey['A100']}} />
           </IconButton>
 
-          <IconButton aria-label="cart" onClick={() => goToCart(navigate)}>
-                <ShoppingCartOutlinedIcon sx={{color: grey['A100']}}/>
-          </IconButton>
-
           <IconButton aria-label="stock" onClick={() => goToStock(navigate)}>
                 <Inventory2OutlinedIcon sx={{color: grey['A100']}}/>
+          </IconButton>
+
+          <IconButton aria-label="cart" onClick={() => goToCart(navigate)}>
+                <ShoppingCartOutlinedIcon sx={{color: grey['A100']}}/>
           </IconButton>
 
         </Toolbar>

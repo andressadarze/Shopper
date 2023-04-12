@@ -4,5 +4,6 @@ export const ProductsFeedContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 30px
+    margin: 30px;
+    justify-content: center;
 `

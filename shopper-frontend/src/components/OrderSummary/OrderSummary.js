@@ -1,14 +1,8 @@
 import React, { useContext } from "react"
 import OrderProductCard from "../OrderProductCard/OrderProductCard"
-import styled from "styled-components"
 import GlobalStateContext from "../../global/GlobalStateContex"
+import { ContainerSection } from "./styled"
 
-export const ContainerSection = styled.section`
-    h1 {
-        font-size: 1.5em;
-        text-align: center;
-    }
-`
 
 const OrderSummary = () => {
 
