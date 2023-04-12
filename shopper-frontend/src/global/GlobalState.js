@@ -4,13 +4,14 @@ import GlobalStateContext from './GlobalStateContex'
 import { useState } from 'react'
 import { BASE_URL } from '../constants/urls'
 
+
 const GlobalState = (props) => {
 
-    const [cart, setCart] = useState([])
+    const [ cart, setCart ] = useState([])
 
-    const [total, setTotal] = useState(0)
+    const [ total, setTotal ] = useState(0)
 
-    const [products, setProducts] = useState([])
+    const [ products, setProducts ] = useState([])
 
     const getProducts = () => {
         axios.get(`${BASE_URL}/product`)
@@ -40,13 +41,15 @@ const GlobalState = (props) => {
                 id: productToAdd.id,
                 name: productToAdd.name,
                 price: productToAdd.price,
-                quantity: 1
+                quantity: 1,
+                stockQty: productToAdd.qty_stock
             }
 
             newCart.push(newProduct)
 
             setCart(newCart)
         }
+
     }
 
     const removeFromCart = (productToRemove) => {
@@ -98,7 +101,7 @@ const GlobalState = (props) => {
         setProducts
     }
 
-    const requests = { 
+    const requests = {
         getProducts,
         addToCart,
         removeFromCart,
@@ -107,7 +110,7 @@ const GlobalState = (props) => {
     }
 
     return (
-        <GlobalStateContext.Provider value={{states, setters, requests}}>
+        <GlobalStateContext.Provider value={{ states, setters, requests }}>
             {props.children}
         </GlobalStateContext.Provider>
     )

@@ -13,13 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProductCard = (props) => {
 
-  const { requests } = React.useContext(GlobalStateContext)
+  const { states, requests } = React.useContext(GlobalStateContext)
 
   const { product } = props
 
-  const notify = () => toast.success('Produto adicionado ao carrinho!', {
+
+  const notifysuccess = () => toast.success('Produto adicionado ao carrinho!', {
     position: "top-right",
-    autoClose: 3000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -28,9 +29,29 @@ const ProductCard = (props) => {
     theme: "light",
   })
 
+  const notifyAlert = () => toast.info('Produto já foi adicionado ao carrinho!', {
+    position: "top-right",
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
   const handleClick = (product) => {
-    requests.addToCart(product)
-    notify()
+    const foundIndex = states.cart.findIndex((productInCart) => {
+      return productInCart.id === product.id
+    })
+
+    if (foundIndex >= 0) {
+      notifyAlert()
+    } else {
+      requests.addToCart(product)
+      notifysuccess()
+    }
+
   }
 
   return (
@@ -59,18 +80,8 @@ const ProductCard = (props) => {
           </CardActions>
         </Card>
       </ProductCardContainer>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer />
+
     </div>
 
   );

@@ -6,12 +6,12 @@ POST http://localhost:3003/order/create
 Content-Type: application/json
 
 {
-    "userName": "Outro teste 2",
+    "userName": "Testando erro",
     "deliveryDate": "2023/04/18",
     "shoppingList": [
         {
-            "productId": "19",
-            "quantity": 900
+            "productId": "16",
+            "quantity": 152
         }
     ]
 }
