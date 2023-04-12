@@ -3,9 +3,9 @@ import ProductCard from "../../components/ProductCard/ProductCard"
 import { ProductsFeedContainer } from "./styled"
 import GlobalStateContext from "../../global/GlobalStateContex"
 
-const ProductsFeed = (props) => {
+const ProductsFeed = () => {
 
-    const { states, setters, requests } = useContext(GlobalStateContext)
+    const { states, requests } = useContext(GlobalStateContext)
 
     useEffect(() => {
         requests.getProducts()
@@ -21,12 +21,9 @@ const ProductsFeed = (props) => {
     })
 
     return (
-
         <ProductsFeedContainer>
             {productCards}
         </ProductsFeedContainer>
-
-
     )
 }
 
