@@ -19,14 +19,16 @@ class ProductBusiness {
                 productDB.id ,
                 productDB.name ,
                 productDB.price ,
-                productDB.qty_stock ,
+                productDB.qty_stock,
+                productDB.image_url
             )
 
             const newProduct = {
                 id: product.getId(),
                 name: product.getName(),
                 price: product.getPrice(),
-                qty_stock: product.getStock()
+                qty_stock: product.getStock(),
+                image_url: product.getImageUrl()
             }
 
             return newProduct

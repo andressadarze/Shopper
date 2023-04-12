@@ -21,7 +21,7 @@ const ProductCard = (props) => {
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           sx={{ height: 300 }}
-          image={"https://d2om08pcbtz1n1.cloudfront.net/03d63017-2cb4-41f5-97ef-0ac3c4c55c0c.jpg"}
+          image={product.image_url}
           title="Shopper Product"
         />
         <ProductCardContent>

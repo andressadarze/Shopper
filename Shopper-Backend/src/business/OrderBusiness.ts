@@ -183,10 +183,7 @@ class OrderBusiness {
                 total: order.getTotal()
             }
         }
-
         return response
-
-
     }
 }
 
