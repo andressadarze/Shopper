@@ -4,7 +4,7 @@ import { Card, CardContent } from "@mui/material"
 
 export const ProductCardContainer = styled(Card)`
   width: 250px;
-  margin: 10px
+  margin: 20px
 `
 
 export const ProductCardContent = styled(CardContent)`

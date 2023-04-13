@@ -19,7 +19,7 @@ const OrderSummary = () => {
 
     return (
         <ContainerSection>
-            <h1>Resumo do pedido</h1>
+            <h1>Carrinho</h1>
             {summary}
             <h2>
                 Total: R${states.total.toFixed(2)}

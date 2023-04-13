@@ -28,6 +28,7 @@ export const ContainerDiv = styled.div`
             :hover {
                 cursor: pointer;
                 font-weight: bold;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
                 background-color: lightgray;
             }
         }

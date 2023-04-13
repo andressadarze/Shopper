@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { ContainerLi, ProductCartInformation, QuantityButtons } from "./styled"
+import { ContainerLi, ProductCartInformation, ProductOrderInfo, QuantityButtons } from "./styled"
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const OrderProductCard = (props) => {
 
-    const { states, setters, requests } = useContext(GlobalStateContext)
+    const { requests } = useContext(GlobalStateContext)
 
     const { product } = props
 
@@ -30,23 +30,23 @@ const OrderProductCard = (props) => {
 
     const handleClick = (product) => {
         requests.addToCart(product)
-        if (product.quantity > product.stockQty) {
+        if (product.quantity > product.qty_stock) {
             notifyWarning()
         }  
     }
 
     return (
         <div>
-            < ContainerLi>
-                <h3>{product.name}</h3>
+            <ContainerLi>
+                <ProductOrderInfo>{product.name}</ProductOrderInfo>
                 <ProductCartInformation>
-                    <p>R${product.price}</p>
+                    <ProductOrderInfo>R${product.price}</ProductOrderInfo>
                     <QuantityButtons>
                         <IconButton onClick={() => requests.removeFromCart(product)}>
                             <RemoveCircleOutlineOutlinedIcon sx={{ color: red[500] }} />
                         </IconButton>
 
-                        <p>{product.quantity}</p>
+                        <ProductOrderInfo>{product.quantity}</ProductOrderInfo>
 
                         <IconButton onClick={() => handleClick(product)}>
                             <AddCircleOutlineOutlinedIcon

@@ -42,7 +42,7 @@ const GlobalState = (props) => {
                 name: productToAdd.name,
                 price: productToAdd.price,
                 quantity: 1,
-                stockQty: productToAdd.qty_stock
+                qty_stock: productToAdd.qty_stock
             }
 
             newCart.push(newProduct)

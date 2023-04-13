@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import OrderSummary from "../../components/OrderSummary/OrderSummary"
-import { FinishOrderButtonContainer, InputsContainer, OrderFormContainer, ScreenContainer } from "./styled"
+import { FinishOrderButtonContainer, FormLabel, FormTitle, InputsContainer, OrderFormContainer, ScreenContainer } from "./styled"
 import React, { useContext, useEffect, useState } from "react"
 import useForm from "../../hooks/useForm";
 import GlobalStateContext from "../../global/GlobalStateContex";
@@ -94,28 +94,29 @@ const OrderForm = () => {
         <div>
             <ScreenContainer>
                 <OrderFormContainer>
-                    <h2>Formulário do pedido</h2>
+                    <FormTitle >Formulário do pedido</FormTitle>
                     <form onSubmit={onSubmitForm}>
                         <InputsContainer>
+                            <FormLabel>Nome</FormLabel>
                             <TextField
                                 name={"userName"}
                                 value={form.userName}
                                 onChange={onChange}
-                                label={"Nome"}
                                 variant={"outlined"}
                                 fullWidth
-                                margin={"normal"}
+                                margin={"none"}
                                 required
                                 type="text"
 
                             />
+                            <FormLabel>Data de entrega</FormLabel>
                             <TextField
                                 name={"deliveryDate"}
                                 value={form.deliveryDate}
                                 onChange={onChange}
                                 variant={"outlined"}
                                 fullWidth
-                                margin={"normal"}
+                                margin={"none"}
                                 required
                                 type="date"
 

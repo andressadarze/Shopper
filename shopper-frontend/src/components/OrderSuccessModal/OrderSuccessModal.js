@@ -2,13 +2,15 @@ import { ContainerDiv } from "./styled"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { primaryColor } from "../../constants/colors";
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',
+    width: '30%',
+    minWidth: "600px",
     bgcolor: 'background.paper',
     border: '2px solid #00A978 ',
     boxShadow: 24,
@@ -34,11 +36,11 @@ const OrderSuccessModal = (props) => {
             >
                 <Box sx={style}>
 
-                    <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+                    <Typography id="keep-mounted-modal-title" variant="h6" component="h2" color={primaryColor}>
                         Pedido realizado com sucesso!
                     </Typography>
 
-                    <Typography id="keep-mounted-modal-title" variant="h5" component="h2">
+                    <Typography id="keep-mounted-modal-title" variant="h5" component="h2" color={primaryColor}>
                         Resumo do Pedido
                     </Typography>
 
@@ -55,11 +57,16 @@ const OrderSuccessModal = (props) => {
                             Data de entrega: {order?.deliveryDate}
                         </Typography>
 
+                        <Typography>
+                           Pedido: 
+                        </Typography>
+
                         {order?.shoppingList.map((product) => (
-                            <Typography>
+                            <Typography key={product.id}>
                                 {`${product.productName} - R$${product.price} X ${product.quantity}`}
                             </Typography>
                         ))}
+
                         Total: R${order?.total.toFixed(2)}
 
                     </Typography>
