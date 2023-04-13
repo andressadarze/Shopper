@@ -17,7 +17,6 @@ const style = {
     p: 4,
 };
 
-
 const OrderSuccessModal = (props) => {
 
     const { orderSuccessModal, closeModal } = props

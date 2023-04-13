@@ -1,12 +1,10 @@
 import styled from "styled-components"
 import { Card, CardContent } from "@mui/material"
 
-
 export const ProductCardContainer = styled(Card)`
   width: 250px;
   margin: 20px
 `
-
 export const ProductCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;

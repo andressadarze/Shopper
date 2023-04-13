@@ -4,7 +4,6 @@ import GlobalStateContext from './GlobalStateContex'
 import { useState } from 'react'
 import { BASE_URL } from '../constants/urls'
 
-
 const GlobalState = (props) => {
 
     const [ cart, setCart ] = useState([])

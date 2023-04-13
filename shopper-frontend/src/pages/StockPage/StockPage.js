@@ -3,7 +3,6 @@ import GlobalStateContext from "../../global/GlobalStateContex"
 import { Box } from "@mui/material"
 import * as styled from "./styled"
 
-
 const StockPage = () => {
     const { states, setters, requests } = useContext(GlobalStateContext)
 
@@ -30,6 +29,7 @@ const StockPage = () => {
 
     return (
         <Box style={{justifyContent: "center", minWidth: "100%", padding:"30px"}}>
+
             <styled.StockTitleContainer>
                 <styled.QuantityTitle>ESTOQUE</styled.QuantityTitle>
             </styled.StockTitleContainer>
@@ -46,6 +46,7 @@ const StockPage = () => {
             </styled.StockTitleContainer>
 
             {stockList}
+            
         </Box>
     )
 }

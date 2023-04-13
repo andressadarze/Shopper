@@ -30,7 +30,7 @@ class OrderDatabase extends BaseDatabase {
 
     public getOrderById = async(id: string) : Promise<IOrderDB> => {
         const orderDB : IOrderDB[] = await BaseDatabase.connection(OrderDatabase.TABLE_ORDERS).select().where({ id })
-
+        
         return orderDB[0]
     }
 

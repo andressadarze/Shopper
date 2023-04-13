@@ -16,7 +16,7 @@ const App = () => {
       </GlobalState>
 
     </ThemeProvider>
-  );
+  )
 }
 
 export default App;

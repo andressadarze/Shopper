@@ -10,7 +10,6 @@ import GlobalStateContext from '../../global/GlobalStateContex';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-
 const ProductCard = (props) => {
 
   const { states, requests } = React.useContext(GlobalStateContext)

@@ -3,7 +3,6 @@ import OrderProductCard from "../OrderProductCard/OrderProductCard"
 import GlobalStateContext from "../../global/GlobalStateContex"
 import { ContainerSection } from "./styled"
 
-
 const OrderSummary = () => {
 
     const { states, setters, requests } = useContext(GlobalStateContext)
